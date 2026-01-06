@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { projects } from "@/data";
 import { GridBg } from "@/components/ui/gridBg";
 import ProjectCard from "@/components/ProjectCard";
