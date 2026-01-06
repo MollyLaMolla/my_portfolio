@@ -3,6 +3,16 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 const Skills = () => {
+  const iconPathFor = (label: string) => {
+    const key = label.toLowerCase();
+    const overrides: Record<string, string> = {
+      graphql: "GraphQL",
+      jquery: "jquery",
+    };
+    const base = label.replace(/\s+/g, "-").replace(/\+\+/g, "pp");
+    const filename = overrides[key] ?? base;
+    return `/skills-icons/${filename}.png`;
+  };
   const skills = [
     "html",
     "css",
@@ -294,9 +304,7 @@ const Skills = () => {
                   className="absolute inset-0 flex items-center justify-center"
                   style={{ backfaceVisibility: "hidden" }}>
                   <Image
-                    src={`/skills-icons/${skill
-                      .replace(/\s+/g, "-")
-                      .replace(/\+\+/g, "pp")}.png`}
+                    src={iconPathFor(skill)}
                     alt={skill}
                     fill
                     className="object-contain select-none"
