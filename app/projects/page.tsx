@@ -13,9 +13,11 @@ export default function ProjectsPage() {
           All <span className="text-purple">Projects</span>
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-24">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} {...p} />
-          ))}
+          {projects
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+            .map((p) => (
+              <ProjectCard key={p.id} {...p} />
+            ))}
         </div>
         {/* Back button */}
         <div className="fixed top-4 left-4">

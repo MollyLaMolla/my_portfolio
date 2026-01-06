@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +9,10 @@ import { FaLocationArrow } from "react-icons/fa";
 import MagicBtn from "./ui/magicBtn";
 
 const RecentProjects = () => {
+  function handleLinckClick(url: string) {
+    window.open(url, "_blank");
+  }
+
   return (
     <div className="py-24 relative" id="projects">
       <h1 className="heading">
@@ -15,12 +21,14 @@ const RecentProjects = () => {
       </h1>
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
         {projects
-          .slice(0, 6)
-          .map(({ id, title, des, img, iconLists, link }) => (
+          .filter((project) => project.recent)
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+          .map(({ id, title, des, img, iconLists, websiteLink }) => (
             <div
               key={id}
-              className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-[280px] lg:w-[360px] w-[80vw]">
-              <PinContainer title={link} href={link}>
+              onClick={() => handleLinckClick(websiteLink)}
+              className={`lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-[280px] lg:w-[360px] w-[80vw]`}>
+              <PinContainer title={websiteLink} href={websiteLink}>
                 <div className="relative flex items-center justify-center sm:w-[280px] lg:w-[360px] w-[80vw] overflow-hidden h-[25vh] lg:h-[30vh] mb-10">
                   <div className="relative w-full h-full overflow-hidden rounded-xl bg-[#13162d]">
                     <Image

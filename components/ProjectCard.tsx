@@ -9,7 +9,8 @@ export interface ProjectCardProps {
   des: string;
   img: string;
   iconLists: string[];
-  link: string;
+  websiteLink: string;
+  githubLink?: string;
   tecnologies?: string[];
 }
 
@@ -20,7 +21,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   des,
   img,
   iconLists,
-  link,
+  websiteLink,
+  githubLink,
   tecnologies,
 }) => {
   return (
@@ -87,7 +89,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="py-4 px-6 flex justify-between items-center border-t border-white/10">
         {/* github code link */}
         <Link
-          href={link?.includes("github.com") ? link : "#"}
+          href={githubLink?.includes("github.com") ? githubLink : "#"}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`View source on GitHub for ${title}`}
@@ -104,7 +106,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
         {/* website link */}
         <Link
-          href={link}
+          href={websiteLink}
           target="_blank"
           aria-label={`Visit live site for ${title}`}
           className="inline-flex items-center gap-2 text-xs md:text-sm font-medium text-purple hover:text-white transition-colors">
