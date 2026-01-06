@@ -3,6 +3,7 @@ import Link from "next/link";
 import { projects } from "@/data";
 import { GridBg } from "@/components/ui/gridBg";
 import ProjectCard from "@/components/ProjectCard";
+import BackButton from "@/components/ui/BackButton";
 
 export default function ProjectsPage() {
   return (
@@ -17,17 +18,9 @@ export default function ProjectsPage() {
             <ProjectCard key={p.id} {...p} />
           ))}
         </div>
-        <div className="mt-20 flex justify-center gap-6">
-          <Link
-            href="/#home"
-            className="px-6 py-3 rounded-xl border border-white/10 bg-[#10132E] hover:bg-[#161a31] transition-colors text-sm">
-            Back to Home
-          </Link>
-          <Link
-            href="/#projects"
-            className="px-6 py-3 rounded-xl border border-purple/30 bg-purple/10 hover:bg-purple/20 text-sm text-purple transition-colors">
-            Go to Recent
-          </Link>
+        {/* Back button */}
+        <div className="fixed top-4 left-4">
+          <BackButton />
         </div>
       </div>
     </main>
