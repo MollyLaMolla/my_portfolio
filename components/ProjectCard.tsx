@@ -39,14 +39,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           src="/bg.png"
           alt="background grid"
           fill
-          className="object-cover opacity-50"
+          className="object-cover opacity-70"
         />
         {img ? (
           <Image
             src={img}
             alt={title}
             fill
-            sizes="(max-width:768px) 280px, (max-width:1024px) 360px, 360px"
+            sizes="(max-width:768px) 280px, (max-width:1024px) 360px, 480px"
             className="object-contain object-bottom drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]"
           />
         ) : (
@@ -54,7 +54,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             No preview
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
       </div>
 
       {/* Body */}
@@ -75,7 +74,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <div key={idx} className="flex items-center justify-center">
                 <div className="relative group/icon">
                   <div className="border border-white/10 bg-[#10132E]/80 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center shadow-[0_0_0_1px_rgba(255,255,255,0.06)] group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.18)] transition-shadow">
-                    <Image src={icon} alt={label} width={22} height={22} />
+                    <Image
+                      src={`/small-skills-icons${icon}`}
+                      alt={label}
+                      width={22}
+                      height={22}
+                    />
                   </div>
                   <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-white/15" />
                   {label && <TechBadge label={label} />}

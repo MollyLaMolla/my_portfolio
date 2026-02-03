@@ -59,7 +59,7 @@ const RecentProjects = () => {
                         className="border border-white/[0.2] bg-[#10132E] rounded-full flex items-center justify-center lg:w-10 lg:h-10 w-8 h-8 -ml-3 first:ml-0"
                         title={icon}>
                         <Image
-                          src={icon}
+                          src={`/small-skills-icons${icon}`}
                           alt={icon}
                           width={24}
                           height={24}
