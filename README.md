@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 My Portfolio
 
-## Getting Started
+An interactive, animation‑rich developer portfolio.  
+Explore projects, skills, 3D elements, and a smooth, modern UI built with Next.js.
 
-First, run the development server:
+---
+
+## 🧠 Overview
+
+This portfolio is a fully interactive front‑end and back‑end experience built with **Next.js**, **React**, **Tailwind CSS**, and **TypeScript**.  
+It showcases my work, skills, and experience through clean animations, 3D elements, and dynamic UI components.
+
+The site includes a global navigation with bubble‑style scroll effects, tilt‑reactive cards, draggable/spinnable elements, animated transitions, and a built‑in **bug report system** that supports screenshot uploads.
+
+No database is required — everything is handled client‑side or through lightweight server routes.
+
+---
+
+## 🔥 Features
+
+- 🧭 **Animated navigation bar** with bubble scroll effects  
+- 🌀 **Interactive 3D elements** using Three.js + React Three Fiber  
+- 🎛️ **Tilt effects** on cards and UI components  
+- 🌀 **Draggable and spinnable elements** for playful interactivity  
+- ✨ **Smooth animations** powered by Motion and Tailwind Animate  
+- 🧩 **Projects section** with:
+  - Tech icons  
+  - Live demo links  
+  - Code links  
+  - Clean responsive grid  
+- 💼 **Work experience section**  
+- 🧠 **Skills grid** with icons and categories  
+- 🧱 **Approach section** (Phase 1 → Phase 2 → Phase 3)  
+- 📝 **About section** with personal introduction  
+- 📬 **Contact modal** with:
+  - Email  
+  - GitHub  
+  - LinkedIn  
+  - Phone  
+- 🐞 **Bug report system**:
+  - Name, email, description  
+  - Optional screenshot upload  
+  - Clean UI for reporting issues  
+- 🌙 **Dark mode support** via next-themes  
+- 📱 Fully responsive layout  
+- ⚡ Built with Turbopack for ultra‑fast dev/build times  
+
+---
+
+## 🎬 Animation & Interaction Highlights
+
+- **Motion** for smooth transitions, fades, slides, and spring animations  
+- **React Three Fiber** for 3D models and interactive scenes  
+- **Three‑Globe** for animated Earth visualizations  
+- **Tilt effects** using custom pointer tracking  
+- **Bubble scroll nav** that reacts to scroll position  
+- **Hover parallax** on project cards  
+- **Lottie animations** for micro‑interactions  
+- **Sentry integration** for error tracking  
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- Next.js  
+- React  
+- TypeScript  
+- Tailwind CSS  
+- Motion  
+- Lottie  
+- Next‑Themes  
+
+**3D & Graphics:**
+- Three.js  
+- React Three Fiber  
+- Drei 
+
+**Backend (lightweight):**
+- Node.js  
+- Next.js API routes  
+
+**Utilities:**
+- clsx / cva  
+- Tailwind Merge  
+- Autoprefixer  
+- PostCSS  
+
+---
+
+## 👊 Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
+## 🌐 Live Demo
+[Try it here](https://my-portfolio-l173.onrender.com/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📄 License
+This project is licensed under the ISC License.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
