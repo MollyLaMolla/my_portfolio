@@ -64,21 +64,18 @@ No database is required — everything is handled client‑side or through light
 
 **Frontend:**
 - Next.js  
-- React  
+- React
+- JavaScript 
 - TypeScript  
 - Tailwind CSS  
-- Motion  
-- Lottie  
-- Next‑Themes  
+- Motion   
 
 **3D & Graphics:**
 - Three.js  
-- React Three Fiber  
-- Drei 
 
 **Backend (lightweight):**
 - Node.js  
-- Next.js API routes  
+- Next.js
 
 **Utilities:**
 - clsx / cva  
