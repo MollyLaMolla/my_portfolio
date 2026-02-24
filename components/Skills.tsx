@@ -53,7 +53,7 @@ const Skills = () => {
     "xd",
     "python",
     "c++",
-    "Rust",
+    "rust",
   ];
 
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
