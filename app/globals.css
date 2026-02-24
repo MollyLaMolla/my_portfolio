@@ -182,6 +182,10 @@
   grid-row: span 5 / span 5;
 }
 
+.experience-link {
+  color: red;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 1280px) {
   .bento-item-4 {

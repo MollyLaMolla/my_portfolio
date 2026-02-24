@@ -67,7 +67,7 @@ const Footer = () => {
         onClose={() => setOpenContact(false)}
         email="alessandro.slyusar22@gmail.com"
         githubUrl={socialMedia.find((s) => s.id === 1)?.link}
-        linkedinUrl={socialMedia.find((s) => s.id === 3)?.link}
+        linkedinUrl={socialMedia.find((s) => s.id === 2)?.link}
         phone={"+39 3202688765"}
       />
     </footer>

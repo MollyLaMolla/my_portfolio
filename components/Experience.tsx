@@ -29,7 +29,7 @@ const Experience = () => {
                   {card.title}
                 </h1>
                 <p className="text-start text-white-100 mt-3 font-semibold">
-                  {card.desc}
+                  <span dangerouslySetInnerHTML={{ __html: card.desc }} />
                 </p>
               </div>
             </div>

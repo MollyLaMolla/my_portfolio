@@ -509,7 +509,8 @@ export const workExperience = [
   {
     id: 1,
     title: "Full‑Stack Web Development Trainee",
-    desc: "I began my journey into web development through an intensive full‑stack bootcamp, where I learned the fundamentals of both frontend and backend engineering. During this period, I built complete applications, practiced version control, and worked with workflows inspired by real development environments.",
+    // open the link in a new tab and add some styling to the link
+    desc: "I began my journey into web development through an intensive <a class='text-purple underline hover:text-white transition-all duration-100' href='https://www.udemy.com/course/the-complete-web-development-bootcamp/' target='_blank' rel='noopener noreferrer'>full‑stack bootcamp</a>, where I learned the fundamentals of both frontend and backend engineering. During this period, I built complete applications, practiced version control, and worked with workflows inspired by real development environments.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
   },
@@ -542,9 +543,10 @@ export const socialMedia = [
     img: "/github.svg",
     link: "https://github.com/MollyLaMolla",
   },
+  // for now using the github link for linkedin as well, but it can be easily changed to the actual linkedin profile link when available
   {
     id: 2,
     img: "/linkedin.svg",
-    link: "https://linkedin.com/in/yourprofile",
+    link: "https://github.com/MollyLaMolla",
   },
 ];
