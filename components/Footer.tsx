@@ -48,7 +48,7 @@ const Footer = () => {
           {socialMedia.map((profile) => (
             <div
               key={profile.id}
-              className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturation-180 bg-opacity-75 bg-black-200 rounded-lg border-black-300 border hover:bg-black-300 transition-all duration-300"
+              className="w-10 h-10 cursor-pointer opacity-90 hover:opacity-100 flex justify-center items-center backdrop-filter backdrop-blur-lg saturation-180 bg-opacity-75 bg-black-200 rounded-lg border-black-300 border hover:bg-black-300 transition-all duration-300"
               onClick={() => window.open(profile.link, "_blank")}>
               <Image
                 src={profile.img}

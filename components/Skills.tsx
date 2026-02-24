@@ -53,7 +53,7 @@ const Skills = () => {
     "xd",
     "python",
     "c++",
-    "c",
+    "Rust",
   ];
 
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -145,8 +145,8 @@ const Skills = () => {
         boxShadow:
           "0 8px 30px rgba(139,92,246,0.25), 0 0 40px rgba(59,130,246,0.15)",
         backgroundColor: "rgba(255,255,255,0.98)",
-      } as React.CSSProperties),
-    []
+      }) as React.CSSProperties,
+    [],
   );
 
   const baseTransform = useMemo(
@@ -157,8 +157,8 @@ const Skills = () => {
         transition:
           "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         willChange: "transform",
-      } as React.CSSProperties),
-    []
+      }) as React.CSSProperties,
+    [],
   );
 
   const isTouch =
@@ -267,15 +267,15 @@ const Skills = () => {
                   ? dc === -1
                     ? +shift
                     : dc === 1
-                    ? -shift
-                    : 0
+                      ? -shift
+                      : 0
                   : 0;
                 const ty = isN
                   ? dr === -1
                     ? +shift
                     : dr === 1
-                    ? -shift
-                    : 0
+                      ? -shift
+                      : 0
                   : 0;
                 const opacity = isN ? 1 : 0;
                 return (

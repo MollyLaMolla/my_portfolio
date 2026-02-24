@@ -166,7 +166,7 @@ export const projects = [
     ],
     websiteLink: "https://mollylamolla.github.io/LeagueOfLegends.App.Deploy/",
     githubLink: "https://github.com/MollyLaMolla/LeagueOfLegends.App.Source",
-    order: 3,
+    order: 4,
     recent: true,
   },
   {
@@ -198,7 +198,7 @@ export const projects = [
     ],
     websiteLink: "https://movie-notes-5px8.onrender.com",
     githubLink: "https://github.com/MollyLaMolla/Movie-Notes",
-    order: 4,
+    order: 3,
     recent: true,
   },
   {
@@ -283,7 +283,7 @@ export const projects = [
     ],
     websiteLink: "https://mini-chat-265n.onrender.com/",
     githubLink: "https://github.com/MollyLaMolla/mini_chat",
-    order: 7,
+    order: 9,
     recent: false,
   },
   {
@@ -311,7 +311,7 @@ export const projects = [
     ],
     websiteLink: "https://my-blog-emkz.onrender.com/",
     githubLink: "https://github.com/MollyLaMolla/My_Blog",
-    order: 8,
+    order: 10,
     recent: false,
   },
   {
@@ -347,7 +347,7 @@ export const projects = [
     ],
     websiteLink: "https://my-portfolio-l173.onrender.com/projects",
     githubLink: "https://github.com/MollyLaMolla/my_portfolio",
-    order: 9,
+    order: 7,
     recent: false,
   },
   {
@@ -359,7 +359,7 @@ export const projects = [
     tecnologies: ["HTML", "CSS", "JavaScript", "JQuery"],
     websiteLink: "https://mollylamolla.github.io/3x3-Game/",
     githubLink: "https://github.com/MollyLaMolla/3X3-Game",
-    order: 10,
+    order: 11,
     recent: false,
   },
   {
@@ -371,7 +371,7 @@ export const projects = [
     tecnologies: ["HTML", "CSS", "JavaScript"],
     websiteLink: "https://mollylamolla.github.io/DrumKit/",
     githubLink: "https://github.com/MollyLaMolla/DrumKit",
-    order: 11,
+    order: 13,
     recent: false,
   },
   {
@@ -395,7 +395,7 @@ export const projects = [
     tecnologies: ["HTML", "CSS", "JavaScript"],
     websiteLink: "https://mollylamolla.github.io/Dice-Game/",
     githubLink: "https://github.com/MollyLaMolla/Dice-Game",
-    order: 13,
+    order: 11,
     recent: false,
   },
   {
@@ -421,7 +421,7 @@ export const projects = [
     ],
     websiteLink: "https://qr-code-generator-fog7.onrender.com/",
     githubLink: "https://github.com/MollyLaMolla/QR-code-Generator",
-    order: 14,
+    order: 9,
     recent: false,
   },
   {
@@ -433,7 +433,7 @@ export const projects = [
     tecnologies: ["HTML", "CSS", "JavaScript", "JQuery"],
     websiteLink: "https://mollylamolla.github.io/Calculator/",
     githubLink: "https://github.com/MollyLaMolla/Calculator",
-    order: 15,
+    order: 10,
     recent: false,
   },
   {
@@ -445,7 +445,7 @@ export const projects = [
     tecnologies: ["HTML", "CSS"],
     websiteLink: "https://mollylamolla.github.io/PROGA-site/",
     githubLink: "https://github.com/MollyLaMolla/PROGA-site",
-    order: 16,
+    order: 20,
     recent: false,
   },
   {
@@ -481,7 +481,26 @@ export const projects = [
     tecnologies: ["HTML", "CSS", "JavaScript", "JQuery"],
     websiteLink: "https://mollylamolla.github.io/TN-site/",
     githubLink: "https://github.com/MollyLaMolla/TN-site",
-    order: 19,
+    order: 14,
+    recent: false,
+  },
+  {
+    id: 20,
+    title: "Palworld Host Switcher",
+    des: "A lightweight desktop application for managing Palworld dedicated/co-op save files. Swap host ownership, rename players, transfer worlds between machines, share worlds peer-to-peer, and create backups — all from a clean, modern UI without touching raw game files.",
+    img: "/projects-images/palworld_host_switcher.png",
+    iconLists: [
+      "/react.svg",
+      "/ts.svg",
+      "/vite.svg",
+      "/rust.svg",
+      "/tauri.svg",
+    ],
+    tecnologies: ["React", "Typescript", "Vite", "Rust", "Tauri"],
+    websiteLink:
+      "https://github.com/MollyLaMolla/palworld-host-switcher/releases/tag/v0.1.0",
+    githubLink: "https://github.com/MollyLaMolla/palworld-host-switcher",
+    order: 8,
     recent: false,
   },
 ];
@@ -489,29 +508,29 @@ export const projects = [
 export const workExperience = [
   {
     id: 1,
-    title: "Frontend Engineer Intern",
-    desc: "Assisted in the development of a web-based platform using React.js, enhancing interactivity.",
+    title: "Full‑Stack Web Development Trainee",
+    desc: "I began my journey into web development through an intensive full‑stack bootcamp, where I learned the fundamentals of both frontend and backend engineering. During this period, I built complete applications, practiced version control, and worked with workflows inspired by real development environments.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
   },
   {
     id: 2,
-    title: "Mobile App Dev - JSM Tech",
-    desc: "Designed and developed mobile app for both iOS & Android platforms using React Native.",
+    title: "Independent Web Developer",
+    desc: "After completing the bootcamp, I continued studying on my own, constantly expanding my skills and experimenting with new technologies. I have built more than 30 projects, including websites, web apps, and desktop applications, focusing on performance, clean UI/UX, and scalable architectures.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/exp2.svg",
   },
   {
     id: 3,
-    title: "Freelance App Dev Project",
-    desc: "Led the dev of a mobile app for a client, from initial concept to deployment on app stores.",
+    title: "Personal Projects & Technical Exploration",
+    desc: "I dedicate a significant part of my time to exploring new tools, languages, and development paradigms. I’m currently learning C, C++, Rust, and MongoDB to deepen my understanding of systems programming, data management, and modern software design.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/exp3.svg",
   },
   {
     id: 4,
-    title: "Lead Frontend Developer",
-    desc: "Developed and maintained user-facing features using modern frontend technologies.",
+    title: "Continuous Learning & Technology Growth",
+    desc: "I stay up to date with modern technologies and industry best practices. I regularly study new frameworks, architectural patterns, and development methodologies to improve the quality of my projects and prepare for future professional opportunities in software development.",
     className: "md:col-span-2",
     thumbnail: "/exp4.svg",
   },
@@ -520,17 +539,12 @@ export const workExperience = [
 export const socialMedia = [
   {
     id: 1,
-    img: "/git.svg",
-    link: "https://github.com/yourprofile",
+    img: "/github.svg",
+    link: "https://github.com/MollyLaMolla",
   },
   {
     id: 2,
-    img: "/twit.svg",
-    link: "https://twitter.com/yourprofile",
-  },
-  {
-    id: 3,
-    img: "/link.svg",
+    img: "/linkedin.svg",
     link: "https://linkedin.com/in/yourprofile",
   },
 ];
