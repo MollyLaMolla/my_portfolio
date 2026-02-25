@@ -35,18 +35,19 @@ export const BackgroundGradientAnimation = ({
 }) => {
   const interactiveRef = useRef<HTMLDivElement>(null);
 
-  const [curX, setCurX] = useState(0);
-  const [curY, setCurY] = useState(0);
-  const [tgX, setTgX] = useState(0);
-  const [tgY, setTgY] = useState(0);
+  // Use refs instead of state to avoid React re-renders on every animation frame.
+  // This eliminates forced reflow from 60fps state updates.
+  const curRef = useRef({ x: 0, y: 0 });
+  const tgRef = useRef({ x: 0, y: 0 });
+
   useEffect(() => {
     document.body.style.setProperty(
       "--gradient-background-start",
-      gradientBackgroundStart
+      gradientBackgroundStart,
     );
     document.body.style.setProperty(
       "--gradient-background-end",
-      gradientBackgroundEnd
+      gradientBackgroundEnd,
     );
     document.body.style.setProperty("--first-color", firstColor);
     document.body.style.setProperty("--second-color", secondColor);
@@ -69,53 +70,36 @@ export const BackgroundGradientAnimation = ({
     blendingValue,
   ]);
 
+  // Single rAF loop — no React state, no re-renders, no forced reflow
   useEffect(() => {
     let animationFrameId: number;
 
-    function animate() {
-      setCurX((prevCurX) => {
-        return prevCurX + (tgX - prevCurX) / 20;
-      });
-      setCurY((prevCurY) => {
-        return prevCurY + (tgY - prevCurY) / 20;
-      });
-      animationFrameId = requestAnimationFrame(animate);
-    }
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [tgX, tgY]);
-
-  // Utilizziamo un ref per tenere traccia dell'ultimo render effettuato
-  const lastRenderRef = useRef(0);
-
-  useEffect(() => {
-    // Aggiorniamo lo stile solo se sono passati almeno 16ms dall'ultimo aggiornamento
-    const now = Date.now();
-    if (now - lastRenderRef.current > 16) {
+    function tick() {
+      const cur = curRef.current;
+      const tg = tgRef.current;
+      cur.x += (tg.x - cur.x) / 20;
+      cur.y += (tg.y - cur.y) / 20;
       if (interactiveRef.current) {
-        interactiveRef.current.style.transform = `translate(${Math.round(
-          curX
-        )}px, ${Math.round(curY)}px)`;
-        lastRenderRef.current = now;
+        interactiveRef.current.style.transform = `translate(${Math.round(cur.x)}px, ${Math.round(cur.y)}px)`;
       }
+      animationFrameId = requestAnimationFrame(tick);
     }
-  }, [curX, curY]);
 
-  // Creiamo un riferimento per l'ultimo timestamp per throttling
+    animationFrameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
   const lastMoveTimestamp = useRef(0);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const now = Date.now();
-    // Limitiamo gli aggiornamenti a massimo uno ogni 16ms (circa 60fps)
     if (now - lastMoveTimestamp.current > 16) {
       if (interactiveRef.current) {
         const rect = interactiveRef.current.getBoundingClientRect();
-        setTgX(event.clientX - rect.left);
-        setTgY(event.clientY - rect.top);
+        tgRef.current = {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        };
         lastMoveTimestamp.current = now;
       }
     }
@@ -130,7 +114,7 @@ export const BackgroundGradientAnimation = ({
     <div
       className={cn(
         "h-full w-full absolute overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
-        containerClassName
+        containerClassName,
       )}>
       <svg className="hidden">
         <defs>
@@ -154,7 +138,7 @@ export const BackgroundGradientAnimation = ({
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg",
-          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]"
+          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]",
         )}>
         <div
           className={cn(
@@ -162,7 +146,7 @@ export const BackgroundGradientAnimation = ({
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)]`,
             `[transform-origin:center_center]`,
             `animate-first`,
-            `opacity-100`
+            `opacity-100`,
           )}></div>
         <div
           className={cn(
@@ -170,7 +154,7 @@ export const BackgroundGradientAnimation = ({
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)]`,
             `[transform-origin:calc(50%-400px)]`,
             `animate-second`,
-            `opacity-100`
+            `opacity-100`,
           )}></div>
         <div
           className={cn(
@@ -178,7 +162,7 @@ export const BackgroundGradientAnimation = ({
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)]`,
             `[transform-origin:calc(50%+400px)]`,
             `animate-third`,
-            `opacity-100`
+            `opacity-100`,
           )}></div>
         <div
           className={cn(
@@ -186,7 +170,7 @@ export const BackgroundGradientAnimation = ({
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)]`,
             `[transform-origin:calc(50%-200px)]`,
             `animate-fourth`,
-            `opacity-70`
+            `opacity-70`,
           )}></div>
         <div
           className={cn(
@@ -194,7 +178,7 @@ export const BackgroundGradientAnimation = ({
             `[mix-blend-mode:var(--blending-value)] w-[var(--size)] h-[var(--size)] top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)]`,
             `[transform-origin:calc(50%-800px)_calc(50%+800px)]`,
             `animate-fifth`,
-            `opacity-100`
+            `opacity-100`,
           )}></div>
 
         {interactive && (
@@ -204,7 +188,7 @@ export const BackgroundGradientAnimation = ({
             className={cn(
               `absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_0.8)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
               `[mix-blend-mode:var(--blending-value)] w-full h-full -top-1/2 -left-1/2`,
-              `opacity-70`
+              `opacity-70`,
             )}></div>
         )}
       </div>

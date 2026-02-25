@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -10,6 +10,29 @@ const World = dynamic(() => import("./globe").then((m) => m.World), {
 export const GlobeDemo = React.memo(
   function GlobeDemo() {
     const isMobile = useIsMobile();
+    // Defer loading the 3D globe until the section is near the viewport.
+    // This prevents ~493 KiB of three.js from blocking the main thread at load time.
+    const sentinelRef = useRef<HTMLDivElement>(null);
+    const [isNearViewport, setIsNearViewport] = useState(false);
+
+    useEffect(() => {
+      const el = sentinelRef.current;
+      if (!el || typeof IntersectionObserver === "undefined") {
+        setIsNearViewport(true); // fallback: load immediately
+        return;
+      }
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsNearViewport(true);
+            io.disconnect();
+          }
+        },
+        { rootMargin: "200px" }, // start loading 200px before it scrolls into view
+      );
+      io.observe(el);
+      return () => io.disconnect();
+    }, []);
     // Memoize config and data so il componente non ricalcola ad ogni rerender del genitore
     const globeConfig = useMemo(
       () => ({
@@ -405,22 +428,26 @@ export const GlobeDemo = React.memo(
     );
 
     return (
-      <div className="flex items-center justify-center absolute left-[50%] translate-x-[-50%] top-28 sm:top-12 md:top-20">
-        {/* Fixed-size container: keep desktop dimensions at all breakpoints */}
-        <div
-          className="relative overflow-hidden w-[600px] h-[320px] sm:w-[880px] sm:h-[480px] md:w-[640px] md:h-[384px] max-w-none max-h-none"
-          style={
-            isMobile
-              ? { pointerEvents: "none", touchAction: "pan-y" }
-              : { cursor: "grab" }
-          }>
-          <div className="absolute w-full bottom-0 inset-x-0 h-48 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+      <div
+        ref={sentinelRef}
+        className="flex items-center justify-center absolute left-[50%] translate-x-[-50%] top-28 sm:top-12 md:top-20">
+        {isNearViewport && (
+          /* Fixed-size container: keep desktop dimensions at all breakpoints */
           <div
-            className="absolute w-full h-full z-10"
-            style={isMobile ? { pointerEvents: "none" } : undefined}>
-            <World data={sampleArcs} globeConfig={globeConfig} />
+            className="relative overflow-hidden w-[600px] h-[320px] sm:w-[880px] sm:h-[480px] md:w-[640px] md:h-[384px] max-w-none max-h-none"
+            style={
+              isMobile
+                ? { pointerEvents: "none", touchAction: "pan-y" }
+                : { cursor: "grab" }
+            }>
+            <div className="absolute w-full bottom-0 inset-x-0 h-48 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+            <div
+              className="absolute w-full h-full z-10"
+              style={isMobile ? { pointerEvents: "none" } : undefined}>
+              <World data={sampleArcs} globeConfig={globeConfig} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   },

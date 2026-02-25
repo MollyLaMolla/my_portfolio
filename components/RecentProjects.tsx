@@ -48,7 +48,7 @@ const RecentProjects = () => {
                         fill
                         sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 360px"
                         className="object-cover"
-                        loading="eager"
+                        loading="lazy"
                       />
                       <Image
                         src={img}
@@ -56,7 +56,7 @@ const RecentProjects = () => {
                         fill
                         sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 360px"
                         className="z-10 object-contain object-bottom"
-                        loading="eager"
+                        loading="lazy"
                       />
                     </div>
                   </div>

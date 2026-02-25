@@ -2,9 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import Image, { StaticImageData } from "next/image";
-import { BackgroundGradientAnimation } from "./background-gradient-animation";
 import { GlobeDemo } from "./GridGlobe";
-import VerticalMovingBoxes from "./VerticalMovingBoxes";
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
 import MagicBtn from "./magicBtn";
@@ -13,6 +11,17 @@ import { FaCircleCheck } from "react-icons/fa6";
 import DarkedBackground from "./darkedBackground";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
+// Lazy-load heavy components only used by specific card IDs
+const BackgroundGradientAnimation = dynamic(
+  () =>
+    import("./background-gradient-animation").then(
+      (m) => m.BackgroundGradientAnimation,
+    ),
+  { ssr: false },
+);
+const VerticalMovingBoxes = dynamic(() => import("./VerticalMovingBoxes"), {
+  ssr: false,
+});
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
 export const BentoGrid = ({
@@ -254,8 +263,7 @@ export const BentoGridItem = ({
               width={1000}
               height={1000}
               style={{ width: "auto", height: "100%" }}
-              loading="eager"
-              fetchPriority="low"
+              loading="lazy"
             />
           )}
         </div>
@@ -277,8 +285,7 @@ export const BentoGridItem = ({
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 288px"
-                loading="eager"
-                fetchPriority="low"
+                loading="lazy"
               />
             </div>
           )}

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, stagger, useAnimate } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -18,20 +18,24 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+    // Animate translateY + subtle blur; opacity stays at 1 so LCP isn't blocked
     animate(
       "span",
       {
-        opacity: 1,
-        filter: filter ? "blur(0px)" : "none",
+        y: 0,
+        ...(filter ? { filter: "blur(0px)" } : {}),
       },
       {
-        duration: duration ? duration : 1,
-        delay: stagger(0.2),
+        duration: duration ?? 0.5,
+        delay: stagger(0.12),
+        ease: [0.25, 0.1, 0.25, 1],
       },
-    ).then(() => setHasAnimated(true));
+    );
   }, [scope, animate, duration, filter]);
 
   const renderWords = () => {
@@ -41,14 +45,18 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className={` ${
+              className={
                 purpleWordsPositions.includes(idx)
                   ? "text-purple"
                   : "dark:text-white text-black"
-              } ${hasAnimated ? "" : "opacity-0"}`}
+              }
               style={{
-                filter: hasAnimated ? "none" : filter ? "blur(16px)" : "none",
-                opacity: hasAnimated ? 1 : undefined,
+                display: "inline-block",
+                // Text is VISIBLE (opacity: 1) from SSR — critical for LCP.
+                // Animation uses translateY + subtle blur instead of hiding text.
+                opacity: 1,
+                transform: "translateY(12px)",
+                filter: filter ? "blur(4px)" : "none",
               }}>
               {word}{" "}
             </motion.span>
@@ -60,16 +68,8 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-bold", className)}>
-      {/* SSR fallback: show text immediately so it's visible before JS hydrates */}
-      <noscript>
-        <div className="my-4">
-          <div className="dark:text-white text-black leading-snug tracking-wide">
-            {words}
-          </div>
-        </div>
-      </noscript>
       <div className="my-4">
-        <div className=" dark:text-white text-black leading-snug tracking-wide">
+        <div className="dark:text-white text-black leading-snug tracking-wide">
           {renderWords()}
         </div>
       </div>
