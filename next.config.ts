@@ -25,6 +25,13 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            // Force browsers to always revalidate HTML pages with the server.
+            // After a deploy, Vercel serves new content immediately;
+            // without this, browsers may show stale cached HTML.
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate",
+          },
         ],
       },
       {
@@ -44,6 +51,16 @@ const nextConfig: NextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        // Static assets in /public (SVGs, PNGs, etc.) — cache 7 days + revalidate
+        source: "/:path*.(svg|png|jpg|jpeg|webp|avif|ico|json)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
           },
         ],
       },
