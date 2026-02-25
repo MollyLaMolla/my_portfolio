@@ -12,6 +12,7 @@ import MagicBtn from "./magicBtn";
 import { IoCopyOutline } from "react-icons/io5";
 import { FaCircleCheck } from "react-icons/fa6";
 import DarkedBackground from "./darkedBackground";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
@@ -70,6 +71,7 @@ export const BentoGridItem = ({
   const confettiTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Ref for the card DOM node
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
 
   // Simple rAF throttle to keep mousemove performant
   const rafRef = useRef<number | null>(null);
@@ -250,7 +252,7 @@ export const BentoGridItem = ({
               // personalizzed sizes from the imgClassName
               width={1000}
               height={1000}
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "auto", height: "100%" }}
               priority={id === 4}
             />
           )}
@@ -334,7 +336,7 @@ export const BentoGridItem = ({
         <>
           <div
             className={`absolute bottom-0 right-[50%] w-auto h-full translate-x-[50%] pointer-events-none z-[100]`}>
-            {copied && (
+            {copied && !isMobile && (
               <Lottie
                 key={`confetti-${confettiRunId}`}
                 options={{

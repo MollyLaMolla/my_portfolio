@@ -1,6 +1,7 @@
 "use client";
 import React, { useMemo } from "react";
 import dynamic from "next/dynamic";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const World = dynamic(() => import("./globe").then((m) => m.World), {
   ssr: false,
@@ -8,6 +9,7 @@ const World = dynamic(() => import("./globe").then((m) => m.World), {
 
 export const GlobeDemo = React.memo(
   function GlobeDemo() {
+    const isMobile = useIsMobile();
     // Memoize config and data so il componente non ricalcola ad ogni rerender del genitore
     const globeConfig = useMemo(
       () => ({
@@ -32,7 +34,7 @@ export const GlobeDemo = React.memo(
         autoRotate: true,
         autoRotateSpeed: 0.5,
       }),
-      []
+      [],
     );
 
     const colors = useMemo(() => ["#06b6d4", "#3b82f6", "#6366f1"], []);
@@ -399,20 +401,28 @@ export const GlobeDemo = React.memo(
           color: colors[Math.floor(Math.random() * (colors.length - 1))],
         },
       ],
-      [colors]
+      [colors],
     );
 
     return (
       <div className="flex items-center justify-center absolute left-[50%] translate-x-[-50%] top-28 sm:top-12 md:top-20">
         {/* Fixed-size container: keep desktop dimensions at all breakpoints */}
-        <div className="relative overflow-hidden cursor-grab w-[600px] h-[320px] sm:w-[880px] sm:h-[480px] md:w-[640px] md:h-[384px] max-w-none max-h-none">
+        <div
+          className="relative overflow-hidden w-[600px] h-[320px] sm:w-[880px] sm:h-[480px] md:w-[640px] md:h-[384px] max-w-none max-h-none"
+          style={
+            isMobile
+              ? { pointerEvents: "none", touchAction: "pan-y" }
+              : { cursor: "grab" }
+          }>
           <div className="absolute w-full bottom-0 inset-x-0 h-48 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
-          <div className="absolute w-full h-full z-10">
+          <div
+            className="absolute w-full h-full z-10"
+            style={isMobile ? { pointerEvents: "none" } : undefined}>
             <World data={sampleArcs} globeConfig={globeConfig} />
           </div>
         </div>
       </div>
     );
   },
-  () => true
+  () => true,
 );

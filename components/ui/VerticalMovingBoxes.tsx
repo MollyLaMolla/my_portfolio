@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 type Props = {
   // Baseline auto-scroll speed in px per second (positive = upward)
@@ -18,6 +19,7 @@ const VerticalMovingBoxes: React.FC<Props> = ({
   friction = 2000, // slow down in ~1s from max speed
   inertia = true,
 }) => {
+  const isMobile = useIsMobile();
   const leftLists = [
     "HTML",
     "JavaScript",
@@ -97,7 +99,7 @@ const VerticalMovingBoxes: React.FC<Props> = ({
         rightLoopH.current = rightColRef.current.scrollHeight / 2;
       if (leftColRef.current) {
         const gap = parseFloat(
-          getComputedStyle(leftColRef.current).rowGap || "0"
+          getComputedStyle(leftColRef.current).rowGap || "0",
         );
         const first = leftColRef.current.children[0] as HTMLElement | undefined;
         const stride = (first?.offsetHeight || 0) + gap;
@@ -158,6 +160,7 @@ const VerticalMovingBoxes: React.FC<Props> = ({
   }, [autoScrollSpeed, friction, inertia]);
 
   const onPointerDown: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    if (isMobile) return;
     draggingRef.current = true;
     setIsDragging(true);
     lastYRef.current = e.clientY;
@@ -169,6 +172,7 @@ const VerticalMovingBoxes: React.FC<Props> = ({
   };
 
   const onPointerMove: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    if (isMobile) return;
     if (!draggingRef.current) return;
     // Prevent text selection/drag ghost while moving
     e.preventDefault();
@@ -190,7 +194,7 @@ const VerticalMovingBoxes: React.FC<Props> = ({
     // Clamp to max speed
     velRef.current = Math.max(
       -maxReleaseSpeed,
-      Math.min(maxReleaseSpeed, nextVel)
+      Math.min(maxReleaseSpeed, nextVel),
     );
   };
 
@@ -219,14 +223,16 @@ const VerticalMovingBoxes: React.FC<Props> = ({
       {/* tech stack lists */}
       <div
         ref={wrapperRef}
-        className="relative h-full w-full touch-none select-none"
-        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+        className={`relative h-full w-full select-none ${isMobile ? "" : "touch-none"}`}
+        style={{
+          cursor: isMobile ? "default" : isDragging ? "grabbing" : "grab",
+        }}
         onDragStart={(e) => e.preventDefault()}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        onPointerLeave={onPointerUp}>
+        onPointerDown={isMobile ? undefined : onPointerDown}
+        onPointerMove={isMobile ? undefined : onPointerMove}
+        onPointerUp={isMobile ? undefined : onPointerUp}
+        onPointerCancel={isMobile ? undefined : onPointerUp}
+        onPointerLeave={isMobile ? undefined : onPointerUp}>
         <div
           ref={leftColRef}
           className="flex flex-col gap-4 absolute right-28 sm:right-36 w-24 sm:w-28 will-change-transform"

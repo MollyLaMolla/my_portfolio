@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export const PinContainer = ({
   children,
@@ -19,13 +20,25 @@ export const PinContainer = ({
   const [transform, setTransform] = useState(
     "translate(-50%,-50%) rotateX(0deg)",
   );
+  const isMobile = useIsMobile();
 
   const onMouseEnter = () => {
+    if (isMobile) return;
     setTransform("translate(-50%,-50%) rotateX(40deg) scale(0.8)");
   };
   const onMouseLeave = () => {
+    if (isMobile) return;
     setTransform("translate(-50%,-50%) rotateX(0deg) scale(1)");
   };
+
+  // On mobile, render a simplified layout without 3D perspective
+  if (isMobile) {
+    return (
+      <div className={cn("relative z-50 cursor-pointer", containerClassName)}>
+        <div className={cn("relative z-50", className)}>{children}</div>
+      </div>
+    );
+  }
 
   return (
     <div
