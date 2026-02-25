@@ -35,12 +35,14 @@ const RecentProjects = () => {
                       src="/bg.png"
                       alt="bg"
                       fill
+                      sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 360px"
                       className="object-cover"
                     />
                     <Image
                       src={img}
                       alt={title}
                       fill
+                      sizes="(max-width: 640px) 80vw, (max-width: 1024px) 280px, 360px"
                       className="z-10 object-contain object-bottom"
                     />
                   </div>
@@ -61,9 +63,10 @@ const RecentProjects = () => {
                         <Image
                           src={`/small-skills-icons${icon}`}
                           alt={icon}
+                          className="p-0"
+                          style={{ width: "24px", height: "24px" }}
                           width={24}
                           height={24}
-                          className="p-0"
                         />
                       </div>
                     ))}

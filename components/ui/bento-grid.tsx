@@ -5,13 +5,15 @@ import Image, { StaticImageData } from "next/image";
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
 import { GlobeDemo } from "./GridGlobe";
 import VerticalMovingBoxes from "./VerticalMovingBoxes";
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
 import animationData from "@/data/confetti.json";
 import MagicBtn from "./magicBtn";
 import { IoCopyOutline } from "react-icons/io5";
 import { FaCircleCheck } from "react-icons/fa6";
 import DarkedBackground from "./darkedBackground";
+
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 
 export const BentoGrid = ({
   className,
@@ -184,7 +186,7 @@ export const BentoGridItem = ({
           setTilt((t) =>
             t.x !== 0 || t.y !== 0 || t.scale !== 1
               ? { x: 0, y: 0, scale: 1 }
-              : t
+              : t,
           );
         }
       });
@@ -209,7 +211,7 @@ export const BentoGridItem = ({
         ${id === 5 ? "bento-item-5" : ""}
         ${id === 6 ? "justify-center p-5 items-center gap-12 bento-item-6" : ""}
       `,
-        className
+        className,
       )}
       style={{
         background: "rgb(4,7,29)",
@@ -218,9 +220,9 @@ export const BentoGridItem = ({
         overflow: id === 10 ? "visible" : "hidden",
         transform: tiltEnabled
           ? `perspective(${tiltPerspective}px) rotateX(${tilt.x.toFixed(
-              2
+              2,
             )}deg) rotateY(${tilt.y.toFixed(2)}deg) scale(${tilt.scale.toFixed(
-              3
+              3,
             )})`
           : undefined,
         transition: tiltEnabled
@@ -248,6 +250,7 @@ export const BentoGridItem = ({
               // personalizzed sizes from the imgClassName
               width={1000}
               height={1000}
+              style={{ width: "100%", height: "auto" }}
               priority={id === 4}
             />
           )}
@@ -286,7 +289,7 @@ export const BentoGridItem = ({
             titleClassName,
             `transition duration-200 relative flex flex-col min-h-40 px-5 p-5 lg:p-8 md:h-full ${
               id === 6 ? "lg:p-0" : ""
-            } ${id === 3 ? "h-full max-w-[240px]" : ""}`
+            } ${id === 3 ? "h-full max-w-[240px]" : ""}`,
           )}>
           <div className="font-sans text-sm font-extralight text-[#c1c2d3] md:text-xs lg:text-base z-10">
             {description}
@@ -366,7 +369,7 @@ export const BentoGridItem = ({
               handleClick={async () => {
                 try {
                   await navigator.clipboard.writeText(
-                    "alessandro.slyusar22@gmail.com"
+                    "alessandro.slyusar22@gmail.com",
                   );
                 } catch {
                   // Even if clipboard fails, still show the animation for UX feedback
@@ -379,7 +382,7 @@ export const BentoGridItem = ({
                   clearTimeout(confettiTimeoutRef.current);
                 confettiTimeoutRef.current = setTimeout(
                   () => setCopied(false),
-                  1000
+                  1000,
                 );
               }}
             />

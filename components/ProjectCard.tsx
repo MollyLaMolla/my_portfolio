@@ -39,7 +39,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           src="/bg.png"
           alt="background grid"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover opacity-70"
+          loading="eager"
         />
         {img ? (
           <Image
@@ -48,6 +50,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             fill
             sizes="(max-width:768px) 280px, (max-width:1024px) 360px, 480px"
             className="object-contain object-bottom drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]"
+            loading="eager"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-white/30 text-xs">
@@ -79,6 +82,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                       alt={label}
                       width={22}
                       height={22}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-white/15" />

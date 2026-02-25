@@ -1,11 +1,20 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import { FloatingNav } from "@/components/ui/floating-navbar";
-import Grid from "@/components/Grid";
-import RecentProjects from "@/components/RecentProjects";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Approach from "@/components/Approach";
-import Footer from "@/components/Footer";
+
+// Lazy-load below-the-fold sections so they don't block initial paint
+const Grid = dynamic(() => import("@/components/Grid"), { ssr: true });
+const RecentProjects = dynamic(() => import("@/components/RecentProjects"), {
+  ssr: true,
+});
+const Experience = dynamic(() => import("@/components/Experience"), {
+  ssr: true,
+});
+const Skills = dynamic(() => import("@/components/Skills"), { ssr: true });
+const Approach = dynamic(() => import("@/components/Approach"), {
+  ssr: true,
+});
+const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
 
 export default function Home() {
   return (
