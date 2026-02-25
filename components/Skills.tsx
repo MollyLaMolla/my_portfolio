@@ -310,6 +310,7 @@ const Skills = () => {
                     className="object-contain select-none"
                     draggable={false}
                     sizes="(max-width: 420px) 20vw, (max-width: 768px) 12vw, (max-width: 1024px) 10vw, 8vw"
+                    loading="lazy"
                   />
                 </div>
 

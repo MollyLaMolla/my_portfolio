@@ -15,7 +15,7 @@ export const gridItems = [
     imgClassName: "w-full h-full",
     titleClassName: "justify-end",
     titleSizeClassName: "lg:text-3xl md:text-2xl text-2xl",
-    img: "/b1.svg",
+    img: "/b1.png",
     spareImg: "",
   },
   {
@@ -48,7 +48,7 @@ export const gridItems = [
     imgClassName: "h-full w-full",
     titleClassName: "justify-start",
     titleSizeClassName: " md:text-xl text-2xl",
-    img: "/grid.svg",
+    img: "/grid.png",
     spareImg: "/b4.svg",
   },
 
@@ -60,8 +60,8 @@ export const gridItems = [
     imgClassName: "absolute right-0 bottom-0 md:h-[calc(100%-24px)] w-auto",
     titleClassName: "justify-center md:justify-start",
     titleSizeClassName: "lg:text-3xl text-2xl",
-    img: "/b5.svg",
-    spareImg: "/grid.svg",
+    img: "/b5.png",
+    spareImg: "/grid.png",
   },
   {
     id: 6,

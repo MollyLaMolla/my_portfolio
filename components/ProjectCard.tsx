@@ -12,6 +12,8 @@ export interface ProjectCardProps {
   websiteLink: string;
   githubLink?: string;
   tecnologies?: string[];
+  /** Mark card images as above-the-fold for eager loading */
+  aboveFold?: boolean;
 }
 
 import TechBadge from "./ui/TechBadge";
@@ -24,6 +26,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   websiteLink,
   githubLink,
   tecnologies,
+  aboveFold = false,
 }) => {
   return (
     <article className=" relative rounded-2xl border border-white/10 bg-[#0f1324]/10 backdrop-blur-sm flex flex-col overflow-hidden mx-auto shadow-[0_0_0_1px_rgba(255,255,255,0.05)] transition-all duration-500 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_8px_28px_-6px_rgba(0,0,0,0.15),0_0_20px_10px_rgba(139,92,246,0.10)]">
@@ -41,7 +44,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover opacity-70"
-          loading="eager"
+          loading={aboveFold ? "eager" : "lazy"}
         />
         {img ? (
           <Image
@@ -50,7 +53,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             fill
             sizes="(max-width:768px) 280px, (max-width:1024px) 360px, 480px"
             className="object-contain object-bottom drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]"
-            loading="eager"
+            loading={aboveFold ? "eager" : "lazy"}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-white/30 text-xs">
@@ -83,6 +86,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                       width={22}
                       height={22}
                       style={{ width: "auto", height: "auto" }}
+                      loading="lazy"
                     />
                   </div>
                   <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/5 group-hover:ring-white/15" />

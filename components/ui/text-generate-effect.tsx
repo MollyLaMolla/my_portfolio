@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, stagger, useAnimate } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,8 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
+  const [hasAnimated, setHasAnimated] = useState(false);
+
   useEffect(() => {
     animate(
       "span",
@@ -28,8 +30,8 @@ export const TextGenerateEffect = ({
       {
         duration: duration ? duration : 1,
         delay: stagger(0.2),
-      }
-    );
+      },
+    ).then(() => setHasAnimated(true));
   }, [scope, animate, duration, filter]);
 
   const renderWords = () => {
@@ -43,9 +45,10 @@ export const TextGenerateEffect = ({
                 purpleWordsPositions.includes(idx)
                   ? "text-purple"
                   : "dark:text-white text-black"
-              } opacity-0`}
+              } ${hasAnimated ? "" : "opacity-0"}`}
               style={{
-                filter: filter ? "blur(16px)" : "none",
+                filter: hasAnimated ? "none" : filter ? "blur(16px)" : "none",
+                opacity: hasAnimated ? 1 : undefined,
               }}>
               {word}{" "}
             </motion.span>
@@ -57,6 +60,14 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-bold", className)}>
+      {/* SSR fallback: show text immediately so it's visible before JS hydrates */}
+      <noscript>
+        <div className="my-4">
+          <div className="dark:text-white text-black leading-snug tracking-wide">
+            {words}
+          </div>
+        </div>
+      </noscript>
       <div className="my-4">
         <div className=" dark:text-white text-black leading-snug tracking-wide">
           {renderWords()}

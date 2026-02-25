@@ -15,8 +15,8 @@ export default function ProjectsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-24">
           {projects
             .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-            .map((p) => (
-              <ProjectCard key={p.id} {...p} />
+            .map((p, idx) => (
+              <ProjectCard key={p.id} {...p} aboveFold={idx < 6} />
             ))}
         </div>
         {/* Back button */}

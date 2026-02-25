@@ -19,6 +19,7 @@ const Footer = () => {
           fill
           className="object-cover object-center opacity-40 pointer-events-none"
           sizes="100vw"
+          loading="lazy"
         />
       </div>
       <div className="flex flex-col items-center">
@@ -55,6 +56,7 @@ const Footer = () => {
                 alt={String(profile.id)}
                 width={20}
                 height={20}
+                loading="lazy"
               />
             </div>
           ))}

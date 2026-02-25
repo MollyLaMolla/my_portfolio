@@ -7,7 +7,6 @@ import { GlobeDemo } from "./GridGlobe";
 import VerticalMovingBoxes from "./VerticalMovingBoxes";
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
-import animationData from "@/data/confetti.json";
 import MagicBtn from "./magicBtn";
 import { IoCopyOutline } from "react-icons/io5";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -69,6 +68,8 @@ export const BentoGridItem = ({
   // Counter to force remount of Lottie for immediate restart
   const [confettiRunId, setConfettiRunId] = useState(0);
   const confettiTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Lazily loaded confetti animation data (1.2 MB — only fetched on first click)
+  const confettiDataRef = useRef<any>(null);
   // Ref for the card DOM node
   const cardRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
@@ -253,7 +254,8 @@ export const BentoGridItem = ({
               width={1000}
               height={1000}
               style={{ width: "auto", height: "100%" }}
-              priority={id === 4}
+              loading="eager"
+              fetchPriority="low"
             />
           )}
         </div>
@@ -275,7 +277,8 @@ export const BentoGridItem = ({
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 288px"
-                priority={id === 4}
+                loading="eager"
+                fetchPriority="low"
               />
             </div>
           )}
@@ -336,13 +339,13 @@ export const BentoGridItem = ({
         <>
           <div
             className={`absolute bottom-0 right-[50%] w-auto h-full translate-x-[50%] pointer-events-none z-[100]`}>
-            {copied && !isMobile && (
+            {copied && !isMobile && confettiDataRef.current && (
               <Lottie
                 key={`confetti-${confettiRunId}`}
                 options={{
                   loop: false,
                   autoplay: true, // parte immediatamente al mount
-                  animationData: animationData,
+                  animationData: confettiDataRef.current,
                   rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
                 }}
                 isPaused={false}
@@ -375,6 +378,11 @@ export const BentoGridItem = ({
                   );
                 } catch {
                   // Even if clipboard fails, still show the animation for UX feedback
+                }
+                // Lazy-load confetti animation data on first use
+                if (!confettiDataRef.current && !isMobile) {
+                  const mod = await import("@/data/confetti.json");
+                  confettiDataRef.current = mod.default;
                 }
                 // Restart confetti immediately without waiting previous cycle to end
                 setConfettiRunId((n) => n + 1);

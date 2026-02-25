@@ -1,12 +1,17 @@
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 
-// Lazy-load below-the-fold sections so they don't block initial paint
+// Tier 1 — just below the fold, SSR + eager JS load
 const Grid = dynamic(() => import("@/components/Grid"), { ssr: true });
+
+// Tier 2 — mid-page, SSR but lower priority
 const RecentProjects = dynamic(() => import("@/components/RecentProjects"), {
   ssr: true,
 });
+
+// Tier 3 — deep below fold, still SSR for SEO
 const Experience = dynamic(() => import("@/components/Experience"), {
   ssr: true,
 });
@@ -22,14 +27,27 @@ export default function Home() {
       <div className="max-w-7xl w-full">
         <FloatingNav />
         <Hero />
-        <Grid />
-        <RecentProjects />
-        <div className="py-24" id="skills">
-          <Experience />
-          <Skills />
-          <Approach />
-        </div>
-        <Footer />
+
+        {/* Progressive Suspense boundaries — each tier can render independently */}
+        <Suspense>
+          <Grid />
+        </Suspense>
+
+        <Suspense>
+          <RecentProjects />
+        </Suspense>
+
+        <Suspense>
+          <div className="py-24" id="skills">
+            <Experience />
+            <Skills />
+            <Approach />
+          </div>
+        </Suspense>
+
+        <Suspense>
+          <Footer />
+        </Suspense>
       </div>
     </main>
   );
